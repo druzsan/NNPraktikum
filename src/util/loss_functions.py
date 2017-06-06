@@ -47,7 +47,8 @@ class DifferentError(Error):
 
     def calculateError(self, target, output):
         # It is the numbers of differences between target and output
-        return target - output
+        # return target - output
+        return np.subtract(target, output)
 
 
 class MeanSquaredError(Error):
@@ -60,7 +61,9 @@ class MeanSquaredError(Error):
 
     def calculateError(self, target, output):
         # MSE = 1/n*sum (i=1 to n) of (target_i - output_i)^2)
-        pass
+        
+        # Calculation must work element-wise with arrays as well as with single numbers
+        return 1.0 / target.size * np.sum(np.square(np.subtract(target, output)))
 
 
 class SumSquaredError(Error):
@@ -73,7 +76,9 @@ class SumSquaredError(Error):
 
     def calculateError(self, target, output):
         # SSE = 1/2*sum (i=1 to n) of (target_i - output_i)^2)
-        pass
+        
+        # Calculation must work element-wise with arrays as well as with single numbers
+        return 0.5 * np.sum(np.square(np.subtract(target, output)))
 
 
 class BinaryCrossEntropyError(Error):
